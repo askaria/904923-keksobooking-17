@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Анастасия](https://up.htmlacademy.ru/javascript/17/user/904923).
-* Наставник: `Неизвестно`.
+* Наставник: Лариса Клец.
 
 ---
 
