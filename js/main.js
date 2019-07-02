@@ -60,27 +60,27 @@ var adsFormFields = adsForm.children;
 var mapFilterForm = map.querySelector('.map__filters');
 var mapFiltersFields = mapFilterForm.children;
 
-for ( var i = 0; i < mapFiltersFields.length; i++ ) {
-  mapFiltersFields[i].disabled =  true;
+for (i = 0; i < mapFiltersFields.length; i++) {
+  mapFiltersFields[i].disabled = true;
 }
-for ( var i = 0; i < adsFormFields.length; i++ ) {
-  adsFormFields[i].disabled =  true;
+for (i = 0; i < adsFormFields.length; i++) {
+  adsFormFields[i].disabled = true;
 }
 
 pinMain.addEventListener('click', function () {
   map.classList.remove('map--faded');
   adsForm.classList.remove('ad-form--disabled');
-  for ( var i = 0; i < mapFiltersFields.length; i++ ) {
-    mapFiltersFields[i].disabled =  false;
+  for (i = 0; i < mapFiltersFields.length; i++) {
+    mapFiltersFields[i].disabled = false;
   }
-  for ( var i = 0; i < adsFormFields.length; i++ ) {
-    adsFormFields[i].disabled =  false;
+  for (i = 0; i < adsFormFields.length; i++) {
+    adsFormFields[i].disabled = false;
   }
 });
 
 var PIN_WIDTH = 65;
 var PIN_HEIGHT = 65;
-var PIN_MAIN_LEFT = pinMain.offsetLeft + PIN_WIDTH/2;
+var PIN_MAIN_LEFT = pinMain.offsetLeft + PIN_WIDTH / 2;
 var PIN_MAIN_TOP = pinMain.offsetTop + PIN_HEIGHT;
 
 var pinAddress = adsForm.querySelector('#address');
