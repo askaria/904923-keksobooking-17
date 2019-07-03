@@ -48,8 +48,8 @@ var renderObject = function () {
 
 var fragment = document.createDocumentFragment();
 
-for (var j = 0; i < similarAdsNearBy.length; j++) {
-  fragment.appendChild(renderObject(similarAdsNearBy[j]));
+for (i = 0; i < similarAdsNearBy.length; i++) {
+  fragment.appendChild(renderObject(similarAdsNearBy[i]));
 }
 similarListElement.appendChild(fragment);
 
@@ -85,3 +85,33 @@ var PIN_MAIN_TOP = pinMain.offsetTop + PIN_HEIGHT;
 
 var pinAddress = adsForm.querySelector('#address');
 pinAddress.value = PIN_MAIN_LEFT + ', ' + PIN_MAIN_TOP;
+
+var selectType = adsForm.querySelector('#type');
+var price = adsForm.querySelector('#price');
+
+selectType.addEventListener('change', function () {
+  if (selectType.value == 'bungalo') {
+    price.min = 0;
+    price.placeholder = '0';
+  }  else if (selectType.value == 'flat') {
+    price.min = 1000;
+    price.placeholder = '1000';
+  } else if (selectType.value == 'house') {
+    price.min = 5000;
+    price.placeholder = '5000';
+  } else {
+    price.min = 10000;
+    price.placeholder = '10000';
+  }
+});
+
+var selectTimein = adsForm.querySelector('#timein');
+var selectTimeout = adsForm.querySelector('#timeout');
+
+selectTimein.addEventListener('change', function () {
+    selectTimeout.value = selectTimein.value;
+});
+
+selectTimeout.addEventListener('change', function () {
+    selectTimein.value = selectTimeout.value;
+});
