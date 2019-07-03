@@ -46,13 +46,6 @@ var renderObject = function () {
   return pinElement;
 };
 
-var fragment = document.createDocumentFragment();
-
-for (i = 0; i < similarAdsNearBy.length; i++) {
-  fragment.appendChild(renderObject(similarAdsNearBy[i]));
-}
-similarListElement.appendChild(fragment);
-
 var pinMain = map.querySelector('.map__pin--main');
 
 var adsForm = document.querySelector('.ad-form');
@@ -69,6 +62,14 @@ for (i = 0; i < adsFormFields.length; i++) {
 
 pinMain.addEventListener('click', function () {
   map.classList.remove('map--faded');
+
+  var fragment = document.createDocumentFragment();
+
+  for (i = 0; i < similarAdsNearBy.length; i++) {
+    fragment.appendChild(renderObject(similarAdsNearBy[i]));
+  }
+  similarListElement.appendChild(fragment);
+
   adsForm.classList.remove('ad-form--disabled');
   for (i = 0; i < mapFiltersFields.length; i++) {
     mapFiltersFields[i].disabled = false;
@@ -89,29 +90,26 @@ pinAddress.value = PIN_MAIN_LEFT + ', ' + PIN_MAIN_TOP;
 var selectType = adsForm.querySelector('#type');
 var price = adsForm.querySelector('#price');
 
+var typeHouseMatchPrice = {
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000,
+  'bungalo': 0
+};
+
 selectType.addEventListener('change', function () {
-  if (selectType.value == 'bungalo') {
-    price.min = 0;
-    price.placeholder = '0';
-  }  else if (selectType.value == 'flat') {
-    price.min = 1000;
-    price.placeholder = '1000';
-  } else if (selectType.value == 'house') {
-    price.min = 5000;
-    price.placeholder = '5000';
-  } else {
-    price.min = 10000;
-    price.placeholder = '10000';
-  }
+  var typeOfHouse = selectType.value;
+  price.min = typeHouseMatchPrice[typeOfHouse];
+  price.placeholder = price.min;
 });
 
 var selectTimein = adsForm.querySelector('#timein');
 var selectTimeout = adsForm.querySelector('#timeout');
 
 selectTimein.addEventListener('change', function () {
-    selectTimeout.value = selectTimein.value;
+  selectTimeout.value = selectTimein.value;
 });
 
 selectTimeout.addEventListener('change', function () {
-    selectTimein.value = selectTimeout.value;
+  selectTimein.value = selectTimeout.value;
 });
