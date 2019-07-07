@@ -77,7 +77,7 @@ pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 
 pinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
-  //Разблокируем карту и форму
+  // Разблокируем карту и форму
   map.classList.remove('map--faded');
 
   adsForm.classList.remove('ad-form--disabled');
@@ -236,8 +236,16 @@ resetButton.addEventListener('click', function () {
   }
 
   // Пин возвращается на место
-  pinMain.style.top = INIT_X + 'px';
-  pinMain.style.left = INIT_Y + 'px';
+  pinMain.style.top = INIT_Y + 'px';
+  pinMain.style.left = INIT_X + 'px';
   pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
+  // Удаляем пины похожих объявлений
+  var removePins = function () {
+    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    allPins.forEach(function (currentPin) {
+      currentPin.parentNode.removeChild(currentPin);
+    });
+  }
+  removePins();
 });
