@@ -2,7 +2,7 @@
 
 var map = document.querySelector('.map');
 
-//Отрисовка маркеров-соседей
+// Отрисовка маркеров-соседей
 var similarAdsNearBy = [];
 var OFFER_TYPE = ['palace', 'flat', 'house', 'bungalo'];
 
@@ -54,7 +54,7 @@ var renderObject = function () {
   return pinElement;
 };
 
-//Блокировка формы подачи объявления
+// Блокировка формы подачи объявления
 for (i = 0; i < mapFiltersFields.length; i++) {
   mapFiltersFields[i].disabled = true;
 }
@@ -69,11 +69,11 @@ var PIN_HEIGHT = 65;
 var INIT_X = pinMain.offsetLeft;
 var INIT_Y = pinMain.offsetTop;
 
-//Координаты в неактивном состоянии
+// Координаты в неактивном состоянии
 var pinAddress = adsForm.querySelector('#address');
 pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
-//При движении курсора
+// При движении курсора
 pinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
@@ -88,7 +88,7 @@ pinMain.addEventListener('mousedown', function (evt) {
     adsFormFields[i].disabled = false;
   }
 
-  //Отрисуем похожие объявления
+  // Отрисуем похожие объявления
   var fragment = document.createDocumentFragment();
 
   for (i = 0; i < similarAdsNearBy.length; i++) {
@@ -96,7 +96,7 @@ pinMain.addEventListener('mousedown', function (evt) {
   }
   similarListElement.appendChild(fragment);
 
-  //Стартовые координаты
+  // Стартовые координаты
   var startCoords = {
     x: evt.clientX,
     y: evt.clientY
@@ -120,7 +120,7 @@ pinMain.addEventListener('mousedown', function (evt) {
       bottom: 630,
       left: 0,
       right: 1200 - PIN_WIDTH
-    }
+    };
 
     var newCoords = {
       x: pinMain.offsetLeft - shift.x,
@@ -163,7 +163,7 @@ pinMain.addEventListener('mousedown', function (evt) {
       bottom: 630,
       left: 0,
       right: 1200 - PIN_WIDTH
-    }
+    };
 
     var newCoords = {
       x: pinMain.offsetLeft - shift.x,
@@ -192,7 +192,7 @@ pinMain.addEventListener('mousedown', function (evt) {
   document.addEventListener('mouseup', onMouseUp);
 });
 
-//Валидация форм
+// Валидация форм
 var selectType = adsForm.querySelector('#type');
 var price = adsForm.querySelector('#price');
 
@@ -220,11 +220,11 @@ selectTimeout.addEventListener('change', function () {
   selectTimein.value = selectTimeout.value;
 });
 
-//Кнопка сброса
+// Кнопка сброса
 var resetButton = adsForm.querySelector('.ad-form__reset');
 resetButton.addEventListener('click', function () {
 
-  //Форма блокируется
+  // Форма блокируется
   map.classList.add('map--faded');
 
   adsForm.classList.add('ad-form--disabled');
@@ -235,7 +235,7 @@ resetButton.addEventListener('click', function () {
     adsFormFields[i].disabled = true;
   }
 
-  //Пин возвращается на место
+  // Пин возвращается на место
   pinMain.style.top = INIT_X + 'px';
   pinMain.style.left = INIT_Y + 'px';
   pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
