@@ -246,6 +246,6 @@ resetButton.addEventListener('click', function () {
     allPins.forEach(function (currentPin) {
       currentPin.parentNode.removeChild(currentPin);
     });
-  }
+  };
   removePins();
 });
