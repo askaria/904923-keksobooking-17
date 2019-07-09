@@ -4,6 +4,17 @@
 
 var map = document.querySelector('.map');
 var adsForm = document.querySelector('.ad-form');
+var pinMain = map.querySelector('.map__pin--main');
+var PIN_WIDTH_0 = 40;
+var PIN_HEIGHT_0 = 44;
+var INIT_X = pinMain.offsetLeft;
+var INIT_Y = pinMain.offsetTop;
+
+var adsForm = document.querySelector('.ad-form');
+var adsFormFields = adsForm.children;
+var mapFilterForm = map.querySelector('.map__filters');
+var mapFiltersFields = mapFilterForm.children;
+var pinAddress = adsForm.querySelector('#address');
 
 // Валидация форм
 var selectType = adsForm.querySelector('#type');
@@ -41,7 +52,7 @@ resetButton.addEventListener('click', function () {
   map.classList.add('map--faded');
 
   adsForm.classList.add('ad-form--disabled');
-  for (i = 0; i < mapFiltersFields.length; i++) {
+  for (var i = 0; i < mapFiltersFields.length; i++) {
     mapFiltersFields[i].disabled = true;
   }
   for (i = 0; i < adsFormFields.length; i++) {

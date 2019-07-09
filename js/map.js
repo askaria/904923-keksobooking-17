@@ -20,13 +20,13 @@ for (i = 0; i < adsFormFields.length; i++) {
 var similarListElement = document.querySelector('.map__pins');
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var renderObject = function () {
+var renderObject = function (arr) {
   var pinElement = similarPinTemplate.cloneNode(true);
 
-  pinElement.style.cssText = 'left: ' + window.data.similarAdsNearBy[i].location.x + 'px; top: ' + window.data.similarAdsNearBy[i].location.y + 'px;';
+  pinElement.style.cssText = 'left: ' + arr.location.x + 'px; top: ' + arr.location.y + 'px;';
 
   var image = pinElement.querySelector('img');
-  image.src = window.data.similarAdsNearBy[i].author.avatar;
+  image.src = arr.author.avatar;
 
   return pinElement;
 };
@@ -53,6 +53,12 @@ pinMain.addEventListener('mousedown', function (evt) {
     fragment.appendChild(renderObject(window.data.similarAdsNearBy[i]));
   }
   similarListElement.appendChild(fragment);
+
+  var PIN_WIDTH = 65;
+  var PIN_HEIGHT = 65;
+  var INIT_X = pinMain.offsetLeft;
+  var INIT_Y = pinMain.offsetTop;
+  var pinAddress = adsForm.querySelector('#address');
 
   // Стартовые координаты
   var startCoords = {
