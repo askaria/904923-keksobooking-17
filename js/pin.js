@@ -2,23 +2,19 @@
 
 (function () {
 
-var map = document.querySelector('.map');
+  var map = document.querySelector('.map');
+  var pinMain = map.querySelector('.map__pin--main');
 
-var adsForm = document.querySelector('.ad-form');
-var pinMain = map.querySelector('.map__pin--main');
+  var PIN_WIDTH_0 = 40;
+  var PIN_HEIGHT_0 = 44;
+  var INIT_X = pinMain.offsetLeft;
+  var INIT_Y = pinMain.offsetTop;
 
-var PIN_WIDTH_0 = 40;
-var PIN_HEIGHT_0 = 44;
-var PIN_WIDTH = 65;
-var PIN_HEIGHT = 65;
-var INIT_X = pinMain.offsetLeft;
-var INIT_Y = pinMain.offsetTop;
+  var adsForm = document.querySelector('.ad-form');
+  var pinAddress = adsForm.querySelector('#address');
 
-var pinAddress = adsForm.querySelector('#address');
-
-// Координаты в неактивном состоянии
-var pinAddress = adsForm.querySelector('#address');
-pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
-
+  // Координаты в неактивном состоянии
+  var pinAddress = adsForm.querySelector('#address');
+  pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
 })();
