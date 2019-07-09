@@ -14,7 +14,6 @@
   var pinAddress = adsForm.querySelector('#address');
 
   // Координаты в неактивном состоянии
-  var pinAddress = adsForm.querySelector('#address');
   pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
 })();

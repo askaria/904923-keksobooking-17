@@ -34,7 +34,7 @@
   }
 
   window.data = {
-    similarAdsNearBy: similarAdsNearBy;
-  }
+    similarAdsNearBy: similarAdsNearBy
+  };
 
 })();

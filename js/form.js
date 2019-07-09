@@ -47,30 +47,30 @@
   var resetButton = adsForm.querySelector('.ad-form__reset');
   resetButton.addEventListener('click', function () {
 
-  // Форма блокируется
-  map.classList.add('map--faded');
+    // Форма блокируется
+    map.classList.add('map--faded');
 
-  adsForm.classList.add('ad-form--disabled');
-  for (var i = 0; i < mapFiltersFields.length; i++) {
-    mapFiltersFields[i].disabled = true;
-  }
-  for (i = 0; i < adsFormFields.length; i++) {
-    adsFormFields[i].disabled = true;
-  }
+    adsForm.classList.add('ad-form--disabled');
+    for (var i = 0; i < mapFiltersFields.length; i++) {
+      mapFiltersFields[i].disabled = true;
+    }
+    for (i = 0; i < adsFormFields.length; i++) {
+      adsFormFields[i].disabled = true;
+    }
 
-  // Пин возвращается на место
-  pinMain.style.top = INIT_Y + 'px';
-  pinMain.style.left = INIT_X + 'px';
-  pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
+    // Пин возвращается на место
+    pinMain.style.top = INIT_Y + 'px';
+    pinMain.style.left = INIT_X + 'px';
+    pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
-  // Удаляем пины похожих объявлений
-  var removePins = function () {
-    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    allPins.forEach(function (currentPin) {
-      currentPin.parentNode.removeChild(currentPin);
-    });
-  };
-  removePins();
-});
+    // Удаляем пины похожих объявлений
+    var removePins = function () {
+      var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+      allPins.forEach(function (currentPin) {
+        currentPin.parentNode.removeChild(currentPin);
+      });
+    };
+    removePins();
+  });
 
 })();
