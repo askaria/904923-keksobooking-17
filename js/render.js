@@ -20,6 +20,6 @@
     for (var i = 0; i < pinsNumber; i++) {
       similarListElement.appendChild(renderObject(data[i]));
     }
-  }
+  };
 
 })();

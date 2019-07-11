@@ -45,14 +45,14 @@
 
     var updatePins = function () {
       if (selectHousingType.value !== 'any') {
-        var sameTypeOfHouses = pins.filter(function(it) {
+        var sameTypeOfHouses = pins.filter(function (it) {
           return it.offer.type === typeOfHouse;
         });
         window.render(sameTypeOfHouses);
       } else {
         window.render(pins);
       }
-    }
+    };
 
     selectHousingType.addEventListener('change', function () {
       var newTypeOfHouse = selectHousingType.value;
@@ -80,7 +80,6 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
-    var URL = 'https://js.dump.academy/keksobooking/data';
     window.load(successHandler, errorHandler);
 
     // Стартовые координаты
