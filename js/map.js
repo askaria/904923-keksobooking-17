@@ -23,20 +23,6 @@
     adsFormFields[i].disabled = true;
   }
 
-  var similarListElement = document.querySelector('.map__pins');
-  var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
-  var renderObject = function (arr) {
-    var pinElement = similarPinTemplate.cloneNode(true);
-
-    pinElement.style.cssText = 'left: ' + arr.location.x + 'px; top: ' + arr.location.y + 'px;';
-
-    var image = pinElement.querySelector('img');
-    image.src = arr.author.avatar;
-
-    return pinElement;
-  };
-
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -52,16 +38,36 @@
       adsFormFields[i].disabled = false;
     }
 
-    // Отрисуем похожие объявления
-    var successHandler = (function (pins) {
-      var fragment = document.createDocumentFragment();
+    // Фильтр по типу жилья
+    var typeOfHouse;
+    var pins = [];
+    var selectHousingType = mapFilterForm.querySelector('#housing-type');
 
-      for (i = 0; i < 8; i++) {
-        fragment.appendChild(renderObject(pins[i]));
+    var updatePins = function () {
+      if (selectHousingType.value !== 'any') {
+        var sameTypeOfHouses = pins.filter(function(it) {
+          return it.offer.type === typeOfHouse;
+        });
+        window.render(sameTypeOfHouses);
+      } else {
+        window.render(pins);
       }
-      similarListElement.appendChild(fragment);
+    }
+
+    selectHousingType.addEventListener('change', function () {
+      var newTypeOfHouse = selectHousingType.value;
+      typeOfHouse = newTypeOfHouse;
+
+      window.removePins();
+      updatePins();
     });
 
+    var successHandler = (function (data) {
+      pins = data;
+      updatePins();
+    });
+
+    // Ошибка соединения с сервером
     var errorHandler = function (errorMessage) {
       var node = document.createElement('div');
       node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
@@ -74,6 +80,7 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
+    var URL = 'https://js.dump.academy/keksobooking/data';
     window.load(successHandler, errorHandler);
 
     // Стартовые координаты
