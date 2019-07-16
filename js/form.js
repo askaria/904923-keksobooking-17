@@ -4,6 +4,7 @@
 
   var map = document.querySelector('.map');
   var pinMain = map.querySelector('.map__pin--main');
+
   var PIN_WIDTH_0 = 40;
   var PIN_HEIGHT_0 = 44;
   var INIT_X = pinMain.offsetLeft;

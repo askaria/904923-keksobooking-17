@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var map = document.querySelector('.map');
   var pinMain = map.querySelector('.map__pin--main');
 
@@ -23,10 +22,8 @@
     adsFormFields[i].disabled = true;
   }
 
-  // При движении курсора
-  pinMain.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-
+  // Фильтр и загрузка пинов с сервера
+  var activatePage = function () {
     // Разблокируем карту и форму
     map.classList.remove('map--faded');
 
@@ -80,7 +77,17 @@
       document.body.insertAdjacentElement('afterbegin', node);
     };
 
-    window.load(successHandler, errorHandler);
+    window.backend.load(successHandler, errorHandler);
+  };
+
+  // При движении курсора
+  pinMain.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+
+    var pageIsNotActived = map.classList.contains('map--faded');
+    if (pageIsNotActived) {
+      activatePage();
+    }
 
     // Стартовые координаты
     var startCoords = {
