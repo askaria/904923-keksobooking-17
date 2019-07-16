@@ -24,21 +24,21 @@
       xhr.open('POST', URL_SAVE);
       xhr.send(data);
     },
-   load: function (onLoad, onError) {
-     var xhr = setupRequest(onLoad, onError);
+     load: function (onLoad, onError) {
+       var xhr = setupRequest(onLoad, onError);
 
-     xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения');
-     });
+       xhr.addEventListener('error', function () {
+          onError('Произошла ошибка соединения');
+       });
 
-     xhr.addEventListener('timeout', function () {
-       onError('Запрос не успел выполнится за ' + xhr.timeout + 'мс');
-     });
+       xhr.addEventListener('timeout', function () {
+         onError('Запрос не успел выполнится за ' + xhr.timeout + 'мс');
+       });
 
-     xhr.timeout = 10000;
-     xhr.open('GET', URL_LOAD);
-     xhr.send();
-   },
+       xhr.timeout = 10000;
+       xhr.open('GET', URL_LOAD);
+       xhr.send();
+     },
   };
 
 })();

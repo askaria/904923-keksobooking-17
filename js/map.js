@@ -78,7 +78,7 @@
     };
 
     window.backend.load(successHandler, errorHandler);
-  }
+  };
 
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
