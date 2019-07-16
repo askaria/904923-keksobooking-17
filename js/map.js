@@ -81,15 +81,15 @@
   };
 
   // Координаты
-  var LimitCoords = function(left, top, right, bottom) {
+  var LimitCoords = function (left, top, right, bottom) {
     this.left = left;
     this.top = top;
     this.right = right;
     this.bottom = bottom;
   };
-  var limits = new LimitCoords (0, 130, (1200 - PIN_WIDTH), 630);
+  var limits = new LimitCoords(0, 130, (1200 - PIN_WIDTH), 630);
 
-  var Coordinate = function(x, y, constraints) {
+  var Coordinate = function (x, y, constraints) {
     this.x = x;
     this.y = y;
     if (constraints) {
@@ -97,14 +97,14 @@
     }
   };
 
-  Coordinate.prototype.setX = function(x) {
+  Coordinate.prototype.setX = function (x) {
     if (x >= this._constraints.left &&
         x <= this._constraints.right) {
       this.x = x;
     }
   };
 
-  Coordinate.prototype.setY = function(y) {
+  Coordinate.prototype.setY = function (y) {
     if (y >= this._constraints.top &&
         y <= this._constraints.bottom) {
       this.y = y;
@@ -121,25 +121,27 @@
     }
 
     // Стартовые координаты
-    var startCoords = new Coordinate (evt.clientX, evt.clientY);
+    var startCoords = new Coordinate(evt.clientX, evt.clientY);
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var shift = new Coordinate ((startCoords.x - moveEvt.clientX), (startCoords.y - moveEvt.clientY));
+      var shift = new Coordinate((startCoords.x - moveEvt.clientX), (startCoords.y - moveEvt.clientY));
 
-      startCoords =  new Coordinate (moveEvt.clientX, moveEvt.clientY);
+      startCoords =  new Coordinate(moveEvt.clientX, moveEvt.clientY);
 
-    /*  var limitsCoords = {
+      /*
+      var limitsCoords = {
         top: 130,
         bottom: 630,
         left: 0,
         right: 1200 - PIN_WIDTH
       };
-*/
+      */
       var newCoords =  new Coordinate ((pinMain.offsetLeft - shift.x), (pinMain.offsetTop - shift.y), limits);
 
-     /* if (newCoords.y < limitsCoords.top) {
+      /*
+      if (newCoords.y < limitsCoords.top) {
         newCoords.y = limitsCoords.top;
       } else if (newCoords.y > limitsCoords.bottom) {
         newCoords.y = limitsCoords.bottom;
@@ -150,7 +152,7 @@
       } else if (newCoords.x > limitsCoords.right) {
         newCoords.x = limitsCoords.right;
       }
-*/
+      */
       pinMain.style.top = newCoords.y + 'px';
       pinMain.style.left = newCoords.x + 'px';
 
