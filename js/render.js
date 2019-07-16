@@ -56,7 +56,7 @@
       photosHouse.innerHTML += '<img src="' + arr.offer.photos[i] + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">';
     }
 
-    var popupAvatar =  cardElement.querySelector('.popup__avatar');
+    var popupAvatar = cardElement.querySelector('.popup__avatar');
     popupAvatar.src = arr.author.avatar;
 
     return cardElement;
