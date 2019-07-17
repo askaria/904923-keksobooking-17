@@ -45,9 +45,9 @@
         var sameTypeOfHouses = pins.filter(function (it) {
           return it.offer.type === typeOfHouse;
         });
-        window.render(sameTypeOfHouses);
+        window.renderPins(sameTypeOfHouses);
       } else {
-        window.render(pins);
+        window.renderPins(pins);
       }
     };
 
@@ -56,6 +56,7 @@
       typeOfHouse = newTypeOfHouse;
 
       window.removePins();
+      window.removeCard();
       updatePins();
     });
 
@@ -63,6 +64,38 @@
       pins = data;
       updatePins();
     });
+
+    // Отрисовка карточки по клику
+    var updateCard = function () {
+      window.renderCard(window.pinObj.ads);
+    }
+
+    var mapPins = map.querySelector('.map__pins');
+      mapPins.addEventListener('click', function(evt) {
+        evt.preventDefault();
+        var target = evt.target;
+          var pin = target.nodeName;
+          var mainPin = target.classList.contains('map__pin--main');
+          if(target && pin == "BUTTON" && !mainPin) {
+            window.removeCard();
+        updateCard();
+         }
+      });
+
+    /*var mapPins = map.querySelector('.map__pins');
+      mapPins.addEventListener('click', function(evt) {
+        evt.preventDefault();
+        var target = evt.target;
+
+        if (target.classList.contains('map__pin--main')) {
+          return;
+        } else {
+          var pinID = pins.findIndex(function (it) {
+            return it.myid === target.id;
+          });
+          window.renderCard(pins[pinID]);
+        }
+      });*/
 
     // Ошибка соединения с сервером
     var errorHandler = function (errorMessage) {
@@ -205,5 +238,13 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  // Закрытие информации об объявлении
+  /*var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var mapCard = similarCardTemplate.querySelector('.map__card');
+  var closeButton = similarCardTemplate.querySelector('.popup__close');
+  closeButton.addEventListener('click', function() {
+    mapCard.classList.add('hidden');
+  });*/
 
 })();
