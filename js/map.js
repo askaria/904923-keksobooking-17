@@ -6,6 +6,7 @@
 
   var PIN_WIDTH = 65;
   var PIN_HEIGHT = 65;
+  var ESC_KEYCODE = 27;
 
   var adsForm = document.querySelector('.ad-form');
   var adsFormFields = adsForm.children;
@@ -45,9 +46,9 @@
         var sameTypeOfHouses = pins.filter(function (it) {
           return it.offer.type === typeOfHouse;
         });
-        window.render(sameTypeOfHouses);
+        window.renderPins(sameTypeOfHouses);
       } else {
-        window.render(pins);
+        window.renderPins(pins);
       }
     };
 
@@ -56,12 +57,56 @@
       typeOfHouse = newTypeOfHouse;
 
       window.removePins();
+      window.removeCard();
       updatePins();
     });
 
     var successHandler = (function (data) {
       pins = data;
       updatePins();
+    });
+
+    // Отрисовка карточки по клику
+    var updateCard = function () {
+      window.renderCard(window.pinObj.ads);
+    };
+
+    var mapPins = map.querySelector('.map__pins');
+    mapPins.addEventListener('click', function (evt) {
+      evt.preventDefault();
+      var target = evt.target;
+      while (target !== evt.currentTarget) {
+        var mainPin = target.classList.contains('map__pin--main');
+        if (target.nodeName === 'BUTTON' && !mainPin) {
+          window.removeCard();
+          updateCard();
+
+          var card = document.querySelector('.map__card');
+          var closeButton = card.querySelector('.popup__close');
+
+          var onCardEscPress = function (e) {
+            if (e.keyCode === ESC_KEYCODE) {
+              closeCard();
+            }
+          };
+
+          document.addEventListener('keydown', function (e) {
+            if (e.keyCode === ESC_KEYCODE) {
+              closeCard();
+            }
+          });
+
+          var closeCard = function () {
+            card.classList.add('hidden');
+            document.removeEventListener('keydown', onCardEscPress);
+          };
+
+          closeButton.addEventListener('click', function () {
+            closeCard();
+          });
+        }
+        target = target.parentNode;
+      }
     });
 
     // Ошибка соединения с сервером
@@ -80,6 +125,37 @@
     window.backend.load(successHandler, errorHandler);
   };
 
+  // Координаты
+  var LimitCoords = function (left, top, right, bottom) {
+    this.left = left;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+  };
+  var limits = new LimitCoords(0, 130, (1200 - PIN_WIDTH), 630);
+
+  var Coordinate = function (x, y, constraints) {
+    this.x = x;
+    this.y = y;
+    if (constraints) {
+      this._constraints = constraints;
+    }
+  };
+
+  Coordinate.prototype.setX = function (x) {
+    if (x >= this._constraints.left &&
+        x <= this._constraints.right) {
+      this.x = x;
+    }
+  };
+
+  Coordinate.prototype.setY = function (y) {
+    if (y >= this._constraints.top &&
+        y <= this._constraints.bottom) {
+      this.y = y;
+    }
+  };
+
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -90,36 +166,26 @@
     }
 
     // Стартовые координаты
-    var startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
+    var startCoords = new Coordinate(evt.clientX, evt.clientY);
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
+      var shift = new Coordinate((startCoords.x - moveEvt.clientX), (startCoords.y - moveEvt.clientY));
 
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
+      startCoords = new Coordinate(moveEvt.clientX, moveEvt.clientY);
 
+      /*
       var limitsCoords = {
         top: 130,
         bottom: 630,
         left: 0,
         right: 1200 - PIN_WIDTH
       };
+      */
+      var newCoords = new Coordinate((pinMain.offsetLeft - shift.x), (pinMain.offsetTop - shift.y), limits);
 
-      var newCoords = {
-        x: pinMain.offsetLeft - shift.x,
-        y: pinMain.offsetTop - shift.y
-      };
-
+      /*
       if (newCoords.y < limitsCoords.top) {
         newCoords.y = limitsCoords.top;
       } else if (newCoords.y > limitsCoords.bottom) {
@@ -131,7 +197,7 @@
       } else if (newCoords.x > limitsCoords.right) {
         newCoords.x = limitsCoords.right;
       }
-
+      */
       pinMain.style.top = newCoords.y + 'px';
       pinMain.style.left = newCoords.x + 'px';
 
@@ -184,5 +250,13 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  // Закрытие информации об объявлении
+  /* var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var mapCard = similarCardTemplate.querySelector('.map__card');
+  var closeButton = similarCardTemplate.querySelector('.popup__close');
+  closeButton.addEventListener('click', function() {
+    mapCard.classList.add('hidden');
+  });*/
 
 })();

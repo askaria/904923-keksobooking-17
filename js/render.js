@@ -5,26 +5,37 @@
   var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  var renderPin = function (arr) {
+  // Создание пина
+  var renderPin = function (ads, myid) {
     var pinElement = similarPinTemplate.cloneNode(true);
 
-    pinElement.style.cssText = 'left: ' + arr.location.x + 'px; top: ' + arr.location.y + 'px;';
+    pinElement.id = 'pin-' + myid;
+    ads.myid = pinElement.id;
+
+    pinElement.style.cssText = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
 
     var pinImage = pinElement.querySelector('img');
-    pinImage.src = arr.author.avatar;
+    pinImage.src = ads.author.avatar;
+
+    pinElement.addEventListener('click', function () {
+      window.pinObj = {
+        ads: ads
+      };
+    });
 
     return pinElement;
   };
 
-  var renderCard = function (arr) {
+  // Создание карточки
+  var renderCard = function (card) {
     var cardElement = similarCardTemplate.cloneNode(true);
 
-    cardElement.querySelector('.popup__title').textContent = arr.offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = arr.offer.address;
-    cardElement.querySelector('.popup__text--price').textContent = arr.offer.price + '₽/ночь';
+    cardElement.querySelector('.popup__title').textContent = card.offer.title;
+    cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
+    cardElement.querySelector('.popup__text--price').textContent = card.offer.price + '₽/ночь';
 
     var typeHouse;
-    switch (arr.offer.type) {
+    switch (card.offer.type) {
       case 'flat':
         typeHouse = 'Квартира';
         break;
@@ -39,35 +50,39 @@
         break;
     }
     cardElement.querySelector('.popup__type').textContent = typeHouse;
-    cardElement.querySelector('.popup__text--capacity').textContent = arr.offer.rooms + ' комнаты для ' + arr.offer.guests + ' гостей';
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + arr.offer.checkin + ', выезд до ' + arr.offer.checkout;
+    cardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнаты для ' + card.offer.guests + ' гостей';
+    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
 
     var featuresHouse = cardElement.querySelector('.popup__features');
     featuresHouse.innerHTML = '';
-    for (var i = 0; i < arr.offer.features.length; i++) {
-      featuresHouse.innerHTML += '<li class="popup__feature popup__feature--' + arr.offer.features[i] + '"></li>';
+    for (var i = 0; i < card.offer.features.length; i++) {
+      featuresHouse.innerHTML += '<li class="popup__feature popup__feature--' + card.offer.features[i] + '"></li>';
     }
 
-    cardElement.querySelector('.popup__description').textContent = arr.offer.description;
+    cardElement.querySelector('.popup__description').textContent = card.offer.description;
 
     var photosHouse = cardElement.querySelector('.popup__photos');
     photosHouse.innerHTML = '';
-    for (i = 0; i < arr.offer.photos.length; i++) {
-      photosHouse.innerHTML += '<img src="' + arr.offer.photos[i] + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+    for (i = 0; i < card.offer.photos.length; i++) {
+      photosHouse.innerHTML += '<img src="' + card.offer.photos[i] + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">';
     }
 
     var popupAvatar = cardElement.querySelector('.popup__avatar');
-    popupAvatar.src = arr.author.avatar;
+    popupAvatar.src = card.author.avatar;
 
     return cardElement;
   };
 
-  window.render = function (data) {
+  // Рендеринг пина и карточки
+  window.renderPins = function (data) {
     var pinsNumber = data.length > 5 ? 5 : data.length;
     for (var i = 0; i < pinsNumber; i++) {
-      similarListElement.appendChild(renderPin(data[i]));
+      similarListElement.appendChild(renderPin(data[i], i));
     }
-    similarListElement.after(renderCard(data[0]));
+  };
+
+  window.renderCard = function (data) {
+    similarListElement.after(renderCard(data));
   };
 
 })();
