@@ -90,6 +90,12 @@
             }
           }
 
+          document.addEventListener('keydown', function(evt) {
+            if (evt.keyCode === ESC_KEYCODE) {
+              closeCard();
+            }
+          });
+
           var closeCard = function () {
             card.classList.add('hidden');
             document.removeEventListener('keydown', onCardEscPress);
@@ -102,22 +108,6 @@
         target = target.parentNode;
       }
     });
-
-
-    /* var mapPins = map.querySelector('.map__pins');
-      mapPins.addEventListener('click', function(evt) {
-        evt.preventDefault();
-        var target = evt.target;
-
-        if (target.classList.contains('map__pin--main')) {
-          return;
-        } else {
-          var pinID = pins.findIndex(function (it) {
-            return it.myid === target.id;
-          });
-          window.renderCard(pins[pinID]);
-        }
-      }); */
 
     // Ошибка соединения с сервером
     var errorHandler = function (errorMessage) {
