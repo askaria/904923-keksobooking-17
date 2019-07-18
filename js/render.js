@@ -6,11 +6,8 @@
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Создание пина
-  var renderPin = function (ads, myid) {
+  var renderPin = function (ads) {
     var pinElement = similarPinTemplate.cloneNode(true);
-
-    pinElement.id = 'pin-' + myid;
-    ads.myid = pinElement.id;
 
     pinElement.style.cssText = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
 
@@ -77,7 +74,7 @@
   window.renderPins = function (data) {
     var pinsNumber = data.length > 5 ? 5 : data.length;
     for (var i = 0; i < pinsNumber; i++) {
-      similarListElement.appendChild(renderPin(data[i], i));
+      similarListElement.appendChild(renderPin(data[i]));
     }
   };
 

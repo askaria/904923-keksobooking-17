@@ -72,15 +72,24 @@
     };
 
     var mapPins = map.querySelector('.map__pins');
+    var pin;
     mapPins.addEventListener('click', function (evt) {
       evt.preventDefault();
       var target = evt.target;
+
       while (target !== evt.currentTarget) {
         var mainPin = target.classList.contains('map__pin--main');
         if (target.nodeName === 'BUTTON' && !mainPin) {
+
           window.removeCard();
           updateCard();
 
+          // Смена класса при клике
+          target.classList.add('map__pin--active');
+          if (pin) pin.classList.remove('map__pin--active');
+          pin = target;
+
+          // Закрытие карточки
           var card = document.querySelector('.map__card');
           var closeButton = card.querySelector('.popup__close');
 
