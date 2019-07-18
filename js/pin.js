@@ -16,6 +16,7 @@
   // Координаты в неактивном состоянии
   pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
 
+  // Удаление пинов
   window.removePins = function () {
     var allPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
 
@@ -23,12 +24,4 @@
       currentPin.parentNode.removeChild(currentPin);
     });
   };
-
-  window.removeCard = function () {
-    var card = map.querySelector('.map__card');
-    if (card) {
-      card.remove();
-    }
-  };
-
 })();

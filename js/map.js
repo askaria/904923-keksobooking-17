@@ -6,6 +6,7 @@
 
   var PIN_WIDTH = 65;
   var PIN_HEIGHT = 65;
+  var ESC_KEYCODE = 27;
 
   var adsForm = document.querySelector('.ad-form');
   var adsFormFields = adsForm.children;
@@ -74,13 +75,34 @@
     mapPins.addEventListener('click', function (evt) {
       evt.preventDefault();
       var target = evt.target;
-      var pin = target.nodeName;
-      var mainPin = target.classList.contains('map__pin--main');
-      if (target && pin === 'BUTTON' && !mainPin) {
-        window.removeCard();
-        updateCard();
+      while (target != this) {
+        var mainPin = target.classList.contains('map__pin--main');
+        if (target.nodeName == 'BUTTON' && !mainPin) {
+          window.removeCard();
+          updateCard();
+
+          var card = document.querySelector('.map__card');
+          var closeButton = card.querySelector('.popup__close');
+
+          var onCardEscPress = function (evt) {
+            if (evt.keyCode === ESC_KEYCODE) {
+              closeCard();
+            }
+          }
+
+          var closeCard = function () {
+            card.classList.add('hidden');
+            document.removeEventListener('keydown', onCardEscPress);
+          }
+
+          closeButton.addEventListener('click', function () {
+            closeCard();
+          });
+        }
+        target = target.parentNode;
       }
     });
+
 
     /* var mapPins = map.querySelector('.map__pins');
       mapPins.addEventListener('click', function(evt) {
