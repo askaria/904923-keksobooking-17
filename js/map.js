@@ -71,7 +71,7 @@
     };
 
     var mapPins = map.querySelector('.map__pins');
-    mapPins.addEventListener('click', function(evt) {
+    mapPins.addEventListener('click', function (evt) {
       evt.preventDefault();
       var target = evt.target;
       var pin = target.nodeName;
@@ -171,7 +171,7 @@
         right: 1200 - PIN_WIDTH
       };
       */
-      var newCoords = new Coordinate ((pinMain.offsetLeft - shift.x), (pinMain.offsetTop - shift.y), limits);
+      var newCoords = new Coordinate((pinMain.offsetLeft - shift.x), (pinMain.offsetTop - shift.y), limits);
 
       /*
       if (newCoords.y < limitsCoords.top) {

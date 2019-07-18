@@ -17,7 +17,7 @@
     var pinImage = pinElement.querySelector('img');
     pinImage.src = ads.author.avatar;
 
-    pinElement.addEventListener ('click', function() {
+    pinElement.addEventListener('click', function () {
       window.pinObj = {
         ads: ads
       };
