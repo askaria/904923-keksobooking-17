@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
-
   var map = document.querySelector('.map');
 
   // Закрытие карточки по кресту
