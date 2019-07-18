@@ -17,7 +17,7 @@
     var pinImage = pinElement.querySelector('img');
     pinImage.src = ads.author.avatar;
 
-    pinElement.addEventListener('click', function(evt) {
+    pinElement.addEventListener ('click', function() {
       window.pinObj = {
         ads: ads
       };
@@ -83,6 +83,6 @@
 
   window.renderCard = function (data) {
     similarListElement.after(renderCard(data));
-  }
+  };
 
 })();

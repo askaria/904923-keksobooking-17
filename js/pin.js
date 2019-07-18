@@ -29,6 +29,6 @@
     if (card) {
       card.remove();
     }
-  }
+  };
 
 })();
