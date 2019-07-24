@@ -104,6 +104,7 @@
       var closeCard = function () {
         card.classList.add('hidden');
         document.removeEventListener('keydown', onCardEscPress);
+        pin.classList.remove('map__pin--active');
     };
 
       var onCardEscPress = function (e) {
