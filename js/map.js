@@ -59,10 +59,10 @@
   };
 
   // Отправка формы
-  /*var onFormSubmit = function (evt) {
+  /* var onFormSubmit = function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adFormElement), onLoad, onError);
-  };*/
+  }; */
 
   // Активация карты и загрузка пинов
   var activatePage = function () {
@@ -129,7 +129,7 @@
       pin.classList.remove('map__pin--active');
     }
     pin = target;
-   }
+  };
 
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
@@ -152,12 +152,12 @@
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
-      }
+      };
 
       startCoords = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
-      }
+      };
 
       var limitsCoords = {
         top: 130,
@@ -169,7 +169,7 @@
       var newCoords = {
         x: pinMain.offsetLeft - shift.x,
         y: pinMain.offsetTop - shift.y
-      }
+      };
 
       if (newCoords.y < limitsCoords.top) {
         newCoords.y = limitsCoords.top;
