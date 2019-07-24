@@ -72,6 +72,7 @@
   };
 
   roomSelect.addEventListener('change', roomSelectChange);
+  capacitySelect.addEventListener('change', roomSelectChange);
 
   // Кнопка сброса
   var resetButton = adsForm.querySelector('.ad-form__reset');

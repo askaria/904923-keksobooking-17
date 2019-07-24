@@ -58,6 +58,12 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  // Отправка формы
+  /*var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adFormElement), onLoad, onError);
+  };*/
+
   // Активация карты и загрузка пинов
   var activatePage = function () {
     // Разблокируем карту и форму
@@ -105,7 +111,7 @@
         card.classList.add('hidden');
         document.removeEventListener('keydown', onCardEscPress);
         pin.classList.remove('map__pin--active');
-    };
+      };
 
       var onCardEscPress = function (e) {
         if (e.keyCode === ESC_KEYCODE) {
