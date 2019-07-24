@@ -3,7 +3,9 @@
 (function () {
   var map = document.querySelector('.map');
 
+
   // Закрытие карточки по кресту
+
 
   // Удаление карточки
   window.removeCard = function () {
