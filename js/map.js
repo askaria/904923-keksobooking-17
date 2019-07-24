@@ -31,14 +31,14 @@
   };
 
   // Не выходит убрать в отдельный файл
-    selectHousingType.addEventListener('change', function () {
-      var newTypeOfHouse = selectHousingType.value;
-      typeOfHouse = newTypeOfHouse;
+  selectHousingType.addEventListener('change', function () {
+    var newTypeOfHouse = selectHousingType.value;
+    typeOfHouse = newTypeOfHouse;
 
-      window.removePins();
-      window.removeCard();
-      window.updatePins();
-    });
+    window.removePins();
+    window.removeCard();
+    window.updatePins();
+  });
 
   var successHandler = (function (data) {
     pins = data;
@@ -101,24 +101,26 @@
     if (card) {
       var closeButton = card.querySelector('.popup__close');
 
-    var closeCard = function () {
-      card.classList.add('hidden');
-      document.removeEventListener('keydown', onCardEscPress);
+      var closeCard = function () {
+        card.classList.add('hidden');
+        document.removeEventListener('keydown', onCardEscPress);
     };
 
-    var onCardEscPress = function (e) {
-      if (e.keyCode === ESC_KEYCODE) {
-        closeCard();
-      }
-    };
+      var onCardEscPress = function (e) {
+        if (e.keyCode === ESC_KEYCODE) {
+          closeCard();
+        }
+      };
 
-    document.addEventListener('keydown', onCardEscPress);
-    closeButton.addEventListener('click', closeCard);
+      document.addEventListener('keydown', onCardEscPress);
+      closeButton.addEventListener('click', closeCard);
     }
 
     // Смена класса при клике
     target.classList.add('map__pin--active');
-    if (pin) pin.classList.remove('map__pin--active');
+    if (pin) {
+      pin.classList.remove('map__pin--active');
+    }
     pin = target;
    }
 
@@ -133,8 +135,8 @@
 
     // Стартовые координаты
     var startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
+      x: evt.clientX,
+      y: evt.clientY
     };
 
     var onMouseMove = function (moveEvt) {

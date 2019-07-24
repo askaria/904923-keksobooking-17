@@ -83,6 +83,6 @@
     card: function (data) {
       similarListElement.after(renderCard(data));
     }
-  }
+  };
 
 })();

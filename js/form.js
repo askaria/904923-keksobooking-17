@@ -81,7 +81,7 @@
     map.classList.add('map--faded');
 
     adsForm.classList.add('ad-form--disabled');
-    for (var i = 0; i < mapFiltersFields.length; i++) {
+    for (i = 0; i < mapFiltersFields.length; i++) {
       mapFiltersFields[i].disabled = true;
     }
     for (i = 0; i < adsFormFields.length; i++) {
