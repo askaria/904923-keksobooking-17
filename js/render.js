@@ -6,8 +6,10 @@
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Создание пина
-  var renderPin = function (ads) {
+  var renderPin = function (ads, myid) {
     var pinElement = similarPinTemplate.cloneNode(true);
+
+    pinElement.id = 'pin-' + myid;
 
     pinElement.style.cssText = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
 
@@ -71,15 +73,16 @@
   };
 
   // Рендеринг пина и карточки
-  window.renderPins = function (data) {
-    var pinsNumber = data.length > 5 ? 5 : data.length;
-    for (var i = 0; i < pinsNumber; i++) {
-      similarListElement.appendChild(renderPin(data[i]));
+  window.render = {
+    pins: function (data) {
+      var pinsNumber = data.length > 5 ? 5 : data.length;
+      for (var i = 0; i < pinsNumber; i++) {
+        similarListElement.appendChild(renderPin(data[i], i));
+      }
+    },
+    card: function (data) {
+      similarListElement.after(renderCard(data));
     }
-  };
-
-  window.renderCard = function (data) {
-    similarListElement.after(renderCard(data));
-  };
+  }
 
 })();

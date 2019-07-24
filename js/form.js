@@ -16,6 +16,14 @@
   var mapFiltersFields = mapFilterForm.children;
   var pinAddress = adsForm.querySelector('#address');
 
+  // Блокировка формы подачи объявления
+  for (var i = 0; i < mapFiltersFields.length; i++) {
+    mapFiltersFields[i].disabled = true;
+  }
+  for (i = 0; i < adsFormFields.length; i++) {
+    adsFormFields[i].disabled = true;
+  }
+
   // Валидация форм
   var selectType = adsForm.querySelector('#type');
   var price = adsForm.querySelector('#price');
@@ -43,6 +51,27 @@
   selectTimeout.addEventListener('change', function () {
     selectTimein.value = selectTimeout.value;
   });
+
+  // Проверка соответствия количества гостей
+  var roomSelect = adsForm.querySelector('#room_number');
+  var capacitySelect = adsForm.querySelector('#capacity');
+
+  var guestsNumber = {
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['0']
+  };
+
+  var roomSelectChange = function () {
+    var rooms = roomSelect.value;
+    var capacity = capacitySelect.value;
+    var errorMessage = (guestsNumber[rooms].indexOf(capacity) === -1) ?
+      'Попробуйте еще. Количество гостей  не соответствует количеству комнат :(' : '';
+    capacitySelect.setCustomValidity(errorMessage);
+  };
+
+  roomSelect.addEventListener('change', roomSelectChange);
 
   // Кнопка сброса
   var resetButton = adsForm.querySelector('.ad-form__reset');
