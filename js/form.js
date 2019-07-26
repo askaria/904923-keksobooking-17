@@ -97,7 +97,7 @@
     // Удаляем пины похожих объявлений и карточку
     window.removePins();
     window.removeCard();
-  }
+  };
 
   // Кнопка сброса
   var resetButton = adsForm.querySelector('.ad-form__reset');
@@ -139,24 +139,24 @@
 
   // Отправить форму не удалось
   var onError = function () {
-    var errorNode = similarSuccessTemplate.cloneNode(true);
+    var errorNode = similarErrorTemplate.cloneNode(true);
     document.querySelector('main').appendChild(errorNode);
 
-    var errorButton = document.querySelector('.error__button')
+    var errorButton = document.querySelector('.error__button');
     document.addEventListener('keydown', onErrorEscPress);
     document.addEventListener('click', closeError);
     errorButton.addEventListener('click', closeError);
-  }
+  };
 
   var closeError = function () {
-    var error = document.querySelector('.success');
+    var error = document.querySelector('.error');
     error.remove();
     document.removeEventListener('keydown', onErrorEscPress);
   };
 
   var onErrorEscPress = function (e) {
     if (e.keyCode === ESC_KEYCODE) {
-      closeSuccess();
+      closeError();
     }
   };
 
