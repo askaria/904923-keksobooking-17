@@ -19,7 +19,7 @@
 
   // Отрисовка пинов
   var typeOfHouse;
-  window.updatePins = function () {
+  var updatePins = function () {
     if (selectHousingType.value !== 'any') {
       var sameTypeOfHouses = pins.filter(function (it) {
         return it.offer.type === typeOfHouse;
@@ -37,12 +37,12 @@
 
     window.removePins();
     window.removeCard();
-    window.updatePins();
+    updatePins();
   });
 
   var successHandler = (function (data) {
     pins = data;
-    window.updatePins();
+    updatePins();
   });
 
   // Ошибка соединения с сервером
@@ -58,12 +58,6 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  // Отправка формы
-  /* var onFormSubmit = function (evt) {
-    evt.preventDefault();
-    window.backend.save(new FormData(adFormElement), onLoad, onError);
-  }; */
-
   // Активация карты и загрузка пинов
   var activatePage = function () {
     // Разблокируем карту и форму
@@ -76,6 +70,11 @@
     for (i = 0; i < adsFormFields.length; i++) {
       adsFormFields[i].disabled = false;
     }
+
+    var roomNumber = adsForm.querySelector('#room_number');
+    var capacity = adsForm.querySelector('#capacity');
+    roomNumber.value = '1';
+    capacity.value = '1';
 
     var mapPins = map.querySelector('.map__pins');
     mapPins.addEventListener('click', loadCard);
