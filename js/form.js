@@ -123,7 +123,7 @@
     document.addEventListener('click', closeSuccess);
 
     resetAdsForm();
-  }
+  };
 
   var closeSuccess = function () {
     var success = document.querySelector('.success');
