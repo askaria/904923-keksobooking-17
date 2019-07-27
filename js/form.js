@@ -9,6 +9,7 @@
   var PIN_HEIGHT_0 = 44;
   var INIT_X = pinMain.offsetLeft;
   var INIT_Y = pinMain.offsetTop;
+  var ESC_KEYCODE = 27;
 
   var adsForm = document.querySelector('.ad-form');
   var adsFormFields = adsForm.children;
@@ -74,12 +75,11 @@
   roomSelect.addEventListener('change', roomSelectChange);
   capacitySelect.addEventListener('change', roomSelectChange);
 
-  // Кнопка сброса
-  var resetButton = adsForm.querySelector('.ad-form__reset');
-  resetButton.addEventListener('click', function () {
-
-    // Форма блокируется
+  // Функция сброса
+  var resetAdsForm = function () {
+    // Форма очищается и блокируется
     map.classList.add('map--faded');
+    adsForm.reset();
 
     adsForm.classList.add('ad-form--disabled');
     for (i = 0; i < mapFiltersFields.length; i++) {
@@ -97,6 +97,67 @@
     // Удаляем пины похожих объявлений и карточку
     window.removePins();
     window.removeCard();
-  });
+  };
+
+  // Кнопка сброса
+  var resetButton = adsForm.querySelector('.ad-form__reset');
+  resetButton.addEventListener('click', resetAdsForm);
+
+  // Отправка формы
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adsForm), onLoad, onError);
+  };
+
+  var submitButton = adsForm.querySelector('.ad-form__submit');
+  submitButton.addEventListener('click', onFormSubmit);
+
+  // Успешная отправка
+  var similarSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+  var similarErrorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+  var onLoad = function () {
+    var successNode = similarSuccessTemplate.cloneNode(true);
+    document.querySelector('main').appendChild(successNode);
+    document.addEventListener('keydown', onSuccessEscPress);
+    document.addEventListener('click', closeSuccess);
+
+    resetAdsForm();
+  };
+
+  var closeSuccess = function () {
+    var success = document.querySelector('.success');
+    success.remove();
+    document.removeEventListener('keydown', onSuccessEscPress);
+  };
+
+  var onSuccessEscPress = function (e) {
+    if (e.keyCode === ESC_KEYCODE) {
+      closeSuccess();
+    }
+  };
+
+  // Отправить форму не удалось
+  var onError = function () {
+    var errorNode = similarErrorTemplate.cloneNode(true);
+    document.querySelector('main').appendChild(errorNode);
+
+    var errorButton = document.querySelector('.error__button');
+    document.addEventListener('keydown', onErrorEscPress);
+    document.addEventListener('click', closeError);
+    errorButton.addEventListener('click', closeError);
+  };
+
+  var closeError = function () {
+    var error = document.querySelector('.error');
+    error.remove();
+    document.removeEventListener('keydown', onErrorEscPress);
+  };
+
+  var onErrorEscPress = function (e) {
+    if (e.keyCode === ESC_KEYCODE) {
+      closeError();
+    }
+  };
 
 })();
