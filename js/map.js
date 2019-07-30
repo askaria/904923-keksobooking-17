@@ -13,21 +13,30 @@
   var mapFilterForm = mapFilter.querySelector('.map__filters');
   var mapFiltersFields = mapFilterForm.children;
   var selectHousingType = mapFilterForm.querySelector('#housing-type');
+  var selectHousingPrice = mapFilterForm.querySelector('#housing-price');
   var pinAddress = adsForm.querySelector('#address');
-
-  var pins = [];
 
   // Отрисовка пинов
   var typeOfHouse;
+  var housingPrice;
+  var pins = [];
   var updatePins = function () {
-    if (selectHousingType.value !== 'any') {
+    //if (selectHousingPrice.value !== 'any') {
       var sameTypeOfHouses = pins.filter(function (it) {
         return it.offer.type === typeOfHouse;
       });
+      var sameHousingPrice = pins.filter(function (it) {
+        switch(housingPrice) {
+          case 'low': return it.offer.price < '10000'; break;
+          case 'middle': return it.offer.price >= '10000' && it.offer.price <= '50000'; break;
+            case 'high': return it.offer.price > '50000'; break;
+          default: return it.offer.price;
+        }
+      });
       window.render.pins(sameTypeOfHouses);
-    } else {
-      window.render.pins(pins);
-    }
+    //} else {
+     // window.render.pins(pins);
+    //}
   };
 
   // Не выходит убрать в отдельный файл
@@ -40,8 +49,21 @@
     updatePins();
   });
 
+  //
+  selectHousingPrice.addEventListener('change', function () {
+    var newHousingPrice = selectHousingPrice.value;
+    housingPrice = newHousingPrice;
+
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  });
+
   var successHandler = (function (data) {
     pins = data;
+    for (var i = 0; i < pins.length; i++) {
+      pins[i].id = i;
+    }
     updatePins();
   });
 
@@ -76,6 +98,9 @@
     roomNumber.value = '1';
     capacity.value = '1';
 
+    var flatPrice = adsForm.querySelector('#price');
+    flatPrice.placeholder = '1000';
+
     var mapPins = map.querySelector('.map__pins');
     mapPins.addEventListener('click', loadCard);
 
@@ -95,9 +120,10 @@
     var mainPin = target.classList.contains('map__pin--main');
 
     var id = target.id.slice(4);
+    var index = pins.findIndex(x => x.id === id)
     if (target.nodeName === 'BUTTON' && !mainPin) {
       window.removeCard();
-      window.render.card(pins[id]);
+      window.render.card(pins[index]);
     }
 
     // Закрытие карточки

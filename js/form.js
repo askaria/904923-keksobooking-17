@@ -127,8 +127,10 @@
 
   var closeSuccess = function () {
     var success = document.querySelector('.success');
-    success.remove();
-    document.removeEventListener('keydown', onSuccessEscPress);
+    if (success) {
+      success.remove();
+      document.removeEventListener('keydown', onSuccessEscPress);
+    }
   };
 
   var onSuccessEscPress = function (e) {
@@ -150,8 +152,10 @@
 
   var closeError = function () {
     var error = document.querySelector('.error');
-    error.remove();
-    document.removeEventListener('keydown', onErrorEscPress);
+    if (error) {
+      error.remove();
+      document.removeEventListener('keydown', onErrorEscPress);
+    }
   };
 
   var onErrorEscPress = function (e) {

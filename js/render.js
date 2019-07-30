@@ -6,21 +6,21 @@
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Создание пина
-  var renderPin = function (ads, myid) {
+  var renderPin = function (ad, myid) {
     var pinElement = similarPinTemplate.cloneNode(true);
 
-    pinElement.id = 'pin-' + myid;
+    pinElement.id = 'pin-' + ad.id;
 
-    pinElement.style.cssText = 'left: ' + ads.location.x + 'px; top: ' + ads.location.y + 'px;';
+    pinElement.style.cssText = 'left: ' + ad.location.x + 'px; top: ' + ad.location.y + 'px;';
 
     var pinImage = pinElement.querySelector('img');
-    pinImage.src = ads.author.avatar;
+    pinImage.src = ad.author.avatar;
 
-    pinElement.addEventListener('click', function () {
+    /*pinElement.addEventListener('click', function () {
       window.pinObj = {
-        ads: ads
+        ads: ad
       };
-    });
+    });*/
 
     return pinElement;
   };
