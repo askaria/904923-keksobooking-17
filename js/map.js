@@ -14,32 +14,58 @@
   var mapFiltersFields = mapFilterForm.children;
   var selectHousingType = mapFilterForm.querySelector('#housing-type');
   var selectHousingPrice = mapFilterForm.querySelector('#housing-price');
+  var selectHousingRooms = mapFilterForm.querySelector('#housing-rooms');
+  var selectHousingGuests = mapFilterForm.querySelector('#housing-guests');
+  var selectHousingFeatures = mapFilterForm.querySelector('#housing-features');
   var pinAddress = adsForm.querySelector('#address');
 
   // Отрисовка пинов
   var typeOfHouse;
   var housingPrice;
+  var housingRooms;
+  var housingGuests;
+  var housingFeatures;
   var pins = [];
   var updatePins = function () {
-    //if (selectHousingPrice.value !== 'any') {
-      var sameTypeOfHouses = pins.filter(function (it) {
+    var filteredPins = pins.slice();
+    if (selectHousingType.value !== 'any') {
+      filteredPins = pins.filter(function (it) {
         return it.offer.type === typeOfHouse;
       });
-      var sameHousingPrice = pins.filter(function (it) {
+    }
+    if (selectHousingPrice.value !== 'any') {
+      filteredPins = filteredPins.filter(function (it) {
         switch(housingPrice) {
           case 'low': return it.offer.price < '10000'; break;
           case 'middle': return it.offer.price >= '10000' && it.offer.price <= '50000'; break;
-            case 'high': return it.offer.price > '50000'; break;
+          case 'high': return it.offer.price > '50000'; break;
           default: return it.offer.price;
         }
       });
-      window.render.pins(sameTypeOfHouses);
-    //} else {
-     // window.render.pins(pins);
-    //}
+    }
+    if (selectHousingRooms.value !== 'any') {
+      filteredPins = filteredPins.filter(function (it) {
+        return it.offer.rooms === housingRooms;
+      });
+    }
+    if (selectHousingGuests.value !== 'any') {
+      filteredPins = filteredPins.filter(function (it) {
+        return it.offer.guests === housingGuests;
+      });
+    }
+    window.render.pins(filteredPins);
   };
 
   // Не выходит убрать в отдельный файл
+  var changeSelect = function (variable, select) {
+    var newVariable = select.value;
+    variable = newVariable;
+
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  }
+
   selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
     typeOfHouse = newTypeOfHouse;
@@ -53,6 +79,26 @@
   selectHousingPrice.addEventListener('change', function () {
     var newHousingPrice = selectHousingPrice.value;
     housingPrice = newHousingPrice;
+
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  });
+
+  //
+  selectHousingRooms.addEventListener('change', function () {
+    var newHousingRooms = +selectHousingRooms.value;
+    housingRooms = newHousingRooms;
+
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  });
+
+  //
+  selectHousingGuests.addEventListener('change', function () {
+    var newHousingGuests = +selectHousingGuests.value;
+    housingGuests = newHousingGuests;
 
     window.removePins();
     window.removeCard();
@@ -120,7 +166,9 @@
     var mainPin = target.classList.contains('map__pin--main');
 
     var id = target.id.slice(4);
-    var index = pins.findIndex(x => x.id === id)
+    var index = pins.findIndex(function(it) {
+      return  it.id === parseInt(id, 10) ;
+    });
     if (target.nodeName === 'BUTTON' && !mainPin) {
       window.removeCard();
       window.render.card(pins[index]);
