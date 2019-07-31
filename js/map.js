@@ -29,7 +29,7 @@
   var updatePins = function () {
     var filteredPins = pins.slice();
     if (selectHousingType.value !== 'any') {
-      filteredPins = pins.filter(function (it) {
+      filteredPins = filteredPins.filter(function (it) {
         return it.offer.type === typeOfHouse;
       });
     }
