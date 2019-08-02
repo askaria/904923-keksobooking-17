@@ -111,12 +111,8 @@
 
   //
   for (var i = 0; i < selectHousingFeatures.length; i++) {
-    var housingFeatures;
     selectHousingFeatures[i].addEventListener('click', function () {
       for (i = 0; i < selectHousingFeatures.length; i++) {
-        var newHousingFeatures = +selectHousingFeatures[i].value;
-        housingFeatures = newHousingFeatures;
-
         window.removePins();
         window.removeCard();
         updatePins();
