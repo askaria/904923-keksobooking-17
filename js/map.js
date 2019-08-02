@@ -24,7 +24,6 @@
   var housingPrice;
   var housingRooms;
   var housingGuests;
-  var housingFeatures;
   var pins = [];
   var updatePins = function () {
     var filteredPins = pins.slice();
@@ -112,6 +111,7 @@
 
   //
   for (var i = 0; i < selectHousingFeatures.length; i++) {
+    var housingFeatures;
     selectHousingFeatures[i].addEventListener('click', function () {
       for (i = 0; i < selectHousingFeatures.length; i++) {
         var newHousingFeatures = +selectHousingFeatures[i].value;
@@ -154,7 +154,7 @@
     for (i = 0; i < adsFormFields.length; i++) {
       adsFormFields[i].disabled = false;
     }
-    for (var i = 0; i < mapFiltersFields.length; i++) {
+    for (i = 0; i < mapFiltersFields.length; i++) {
       mapFiltersFields[i].disabled = false;
     }
 

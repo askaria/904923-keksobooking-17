@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-
   // Устранение дребезга
   var DEBOUNCE_INTERVAL = 300; // ms
 
