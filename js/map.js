@@ -71,26 +71,33 @@
     window.render.pins(filteredPins);
   };
 
-  // Не выходит убрать в отдельный файл
-  /*mapFilterForm.addEventListener('change', function () {
+  window.filter.type = window.debounce(function (it) {
+    typeOfHouse = it;
     window.removePins();
     window.removeCard();
     updatePins();
-  });*/
+  });
 
-  window.test.test1 = function (test) {
-    typeOfHouse = test;
+  window.filter.price = window.debounce(function (it) {
+    housingPrice = it;
     window.removePins();
     window.removeCard();
     updatePins();
-  }
+  });
 
-  window.test.test2 = function (test) {
-    housingPrice = test;
+  window.filter.rooms = window.debounce(function (it) {
+    housingRooms = it;
     window.removePins();
     window.removeCard();
     updatePins();
-  }
+  });
+
+  window.filter.guests = window.debounce(function (it) {
+    housingGuests = it;
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  });
 
   /*selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
@@ -102,7 +109,7 @@
   });
 
   //
-  /*selectHousingPrice.addEventListener('change', function () {
+  selectHousingPrice.addEventListener('change', function () {
     var newHousingPrice = selectHousingPrice.value;
     housingPrice = newHousingPrice;
 

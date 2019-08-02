@@ -29,22 +29,34 @@ var map = document.querySelector('.map');
   var selectHousingFeatures = mapFilterForm.querySelector('#housing-features').querySelectorAll('input');
 
   // Фильтр по типу жилья
-  var test = {
-    test1: function (t) {},
-    test2: function (t) {}
+  var filter = {
+    type: function (it) {},
+    price: function (it) {},
+    rooms: function (it) {},
+    guests: function (it) {},
   }
 
   selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
-    test.test1(newTypeOfHouse);
+    filter.type(newTypeOfHouse);
   });
 
   selectHousingPrice.addEventListener('change', function () {
     var newHousingPrice = selectHousingPrice.value;
-    test.test2(newHousingPrice);
+    filter.price(newHousingPrice);
   });
 
-  window.test = test;
+  selectHousingRooms.addEventListener('change', function () {
+    var newHousingRooms = +selectHousingRooms.value;
+    filter.rooms(newHousingRooms);
+  });
+
+  selectHousingGuests.addEventListener('change', function () {
+    var newHousingGuests = +selectHousingGuests.value;
+    filter.guests(newHousingGuests);
+  });
+
+  window.filter = filter;
 
   //
 
