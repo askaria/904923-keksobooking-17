@@ -20,6 +20,7 @@
     window.render.pins(pins);
   };
 
+  // Получение данных с сервера
   var successHandler = (function (data) {
     pins = data;
     for (var i = 0; i < pins.length; i++) {
