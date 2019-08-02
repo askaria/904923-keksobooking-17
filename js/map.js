@@ -12,37 +12,26 @@
   var mapFilter = map.querySelector('.map__filters-container');
   var mapFilterForm = mapFilter.querySelector('.map__filters');
   var mapFiltersFields = mapFilterForm.children;
-  var selectHousingType = mapFilterForm.querySelector('#housing-type');
   var pinAddress = adsForm.querySelector('#address');
 
+  // Отрисовка пинов при загрузке карты
   var pins = [];
-
-  // Отрисовка пинов
-  var typeOfHouse;
-  var updatePins = function () {
-    if (selectHousingType.value !== 'any') {
-      var sameTypeOfHouses = pins.filter(function (it) {
-        return it.offer.type === typeOfHouse;
-      });
-      window.render.pins(sameTypeOfHouses);
-    } else {
-      window.render.pins(pins);
-    }
+  var startLoadPins = function () {
+    window.render.pins(pins);
   };
 
-  // Не выходит убрать в отдельный файл
-  selectHousingType.addEventListener('change', function () {
-    var newTypeOfHouse = selectHousingType.value;
-    typeOfHouse = newTypeOfHouse;
-
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  });
-
+  // Получение данных с сервера
   var successHandler = (function (data) {
     pins = data;
-    updatePins();
+    for (var i = 0; i < pins.length; i++) {
+      pins[i].id = i;
+    }
+    for (i = 0; i < mapFiltersFields.length; i++) {
+      mapFiltersFields[i].disabled = false;
+    }
+    startLoadPins();
+
+    window.pins = pins;
   });
 
   // Ошибка соединения с сервером
@@ -60,14 +49,10 @@
 
   // Активация карты и загрузка пинов
   var activatePage = function () {
-    // Разблокируем карту и форму
     map.classList.remove('map--faded');
 
     adsForm.classList.remove('ad-form--disabled');
-    for (var i = 0; i < mapFiltersFields.length; i++) {
-      mapFiltersFields[i].disabled = false;
-    }
-    for (i = 0; i < adsFormFields.length; i++) {
+    for (var i = 0; i < adsFormFields.length; i++) {
       adsFormFields[i].disabled = false;
     }
 
@@ -76,8 +61,12 @@
     roomNumber.value = '1';
     capacity.value = '1';
 
+    var flatPrice = adsForm.querySelector('#price');
+    flatPrice.placeholder = '1000';
+
     var mapPins = map.querySelector('.map__pins');
     mapPins.addEventListener('click', loadCard);
+    mapPins.addEventListener('keydown', openCard);
 
     window.backend.load(successHandler, errorHandler);
   };
@@ -95,9 +84,12 @@
     var mainPin = target.classList.contains('map__pin--main');
 
     var id = target.id.slice(4);
+    var index = pins.findIndex(function (it) {
+      return it.id === parseInt(id, 10);
+    });
     if (target.nodeName === 'BUTTON' && !mainPin) {
       window.removeCard();
-      window.render.card(pins[id]);
+      window.render.card(pins[index]);
     }
 
     // Закрытие карточки
@@ -128,6 +120,14 @@
       pin.classList.remove('map__pin--active');
     }
     pin = target;
+  };
+
+  // Открытие карточки по Enter
+  var ENTER_KEYCODE = 13;
+  var openCard = function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      loadCard();
+    }
   };
 
   // При движении курсора
