@@ -18,7 +18,7 @@
   var pins = [];
   var startLoadPins = function () {
     window.render.pins(pins);
-  }
+  };
 
   var successHandler = (function (data) {
     pins = data;

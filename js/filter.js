@@ -22,7 +22,6 @@
   var map = document.querySelector('.map');
   var mapFilter = map.querySelector('.map__filters-container');
   var mapFilterForm = mapFilter.querySelector('.map__filters');
-  var mapFiltersFields = mapFilterForm.children;
   var selectHousingType = mapFilterForm.querySelector('#housing-type');
   var selectHousingPrice = mapFilterForm.querySelector('#housing-price');
   var selectHousingRooms = mapFilterForm.querySelector('#housing-rooms');
