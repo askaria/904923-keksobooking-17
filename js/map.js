@@ -72,17 +72,27 @@
   };
 
   // Не выходит убрать в отдельный файл
-  /*var type;
-  mapFilterForm.addEventListener('change', function () {
-    var newType = target.value;
-    type = newType;
-
+  /*mapFilterForm.addEventListener('change', function () {
     window.removePins();
     window.removeCard();
     updatePins();
   });*/
 
-  selectHousingType.addEventListener('change', function () {
+  window.test.test1 = function (test) {
+    typeOfHouse = test;
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  }
+
+  window.test.test2 = function (test) {
+    housingPrice = test;
+    window.removePins();
+    window.removeCard();
+    updatePins();
+  }
+
+  /*selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
     typeOfHouse = newTypeOfHouse;
 
@@ -92,7 +102,7 @@
   });
 
   //
-  selectHousingPrice.addEventListener('change', function () {
+  /*selectHousingPrice.addEventListener('change', function () {
     var newHousingPrice = selectHousingPrice.value;
     housingPrice = newHousingPrice;
 
@@ -119,7 +129,7 @@
     window.removePins();
     window.removeCard();
     updatePins();
-  });
+  });*/
 
   //
   for (var i = 0; i < selectHousingFeatures.length; i++) {
