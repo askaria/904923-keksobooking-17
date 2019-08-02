@@ -6,7 +6,7 @@
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Создание пина
-  var renderPin = function (ad, myid) {
+  var renderPin = function (ad) {
     var pinElement = similarPinTemplate.cloneNode(true);
 
     pinElement.id = 'pin-' + ad.id;
@@ -71,7 +71,7 @@
     pins: function (data) {
       var pinsNumber = data.length > 5 ? 5 : data.length;
       for (var i = 0; i < pinsNumber; i++) {
-        similarListElement.appendChild(renderPin(data[i], i));
+        similarListElement.appendChild(renderPin(data[i]));
       }
     },
     card: function (data) {

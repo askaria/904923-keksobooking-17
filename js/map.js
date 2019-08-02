@@ -24,7 +24,6 @@
   var housingPrice;
   var housingRooms;
   var housingGuests;
-  var housingFeatures;
   var pins = [];
   var updatePins = function () {
     var filteredPins = pins.slice();
@@ -35,11 +34,18 @@
     }
     if (selectHousingPrice.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
-        switch(housingPrice) {
-          case 'low': return it.offer.price < '10000'; break;
-          case 'middle': return it.offer.price >= '10000' && it.offer.price <= '50000'; break;
-          case 'high': return it.offer.price > '50000'; break;
-          default: return it.offer.price;
+        switch (housingPrice) {
+          case 'low':
+            return it.offer.price < '10000';
+            break;
+          case 'middle':
+            return it.offer.price >= '10000' && it.offer.price <= '50000';
+            break;
+          case 'high':
+            return it.offer.price > '50000';
+            break;
+          default:
+            return it.offer.price;
         }
       });
     }
@@ -54,12 +60,12 @@
       });
     }
     for (var i = 0; i < selectHousingFeatures.length; i++) {
-        if (selectHousingFeatures[i].checked) {
-          filteredPins = filteredPins.filter(function (it) {
-            return it.offer.features.includes(selectHousingFeatures[i].value);
-          });
-        }
+      if (selectHousingFeatures[i].checked) {
+        filteredPins = filteredPins.filter(function (it) {
+          return it.offer.features.includes(selectHousingFeatures[i].value);
+        });
       }
+    }
     window.render.pins(filteredPins);
   };
 
@@ -71,7 +77,7 @@
     window.removePins();
     window.removeCard();
     updatePins();
-  }
+  };
 
   selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
@@ -113,22 +119,22 @@
   });
 
   //
-  for (var i = 0; i < selectHousingFeatures.length; i++) {
+  for (i = 0; i < selectHousingFeatures.length; i++) {
     selectHousingFeatures[i].addEventListener('click', function () {
-      for (var i = 0; i < selectHousingFeatures.length; i++) {
+      for (i = 0; i < selectHousingFeatures.length; i++) {
         var newHousingFeatures = +selectHousingFeatures[i].value;
         housingFeatures = newHousingFeatures;
 
         window.removePins();
         window.removeCard();
         updatePins();
-        }
+      }
     });
   }
 
   var successHandler = (function (data) {
     pins = data;
-    for (var i = 0; i < pins.length; i++) {
+    for (i = 0; i < pins.length; i++) {
       pins[i].id = i;
     }
     updatePins();
@@ -188,8 +194,8 @@
     var mainPin = target.classList.contains('map__pin--main');
 
     var id = target.id.slice(4);
-    var index = pins.findIndex(function(it) {
-      return  it.id === parseInt(id, 10) ;
+    var index = pins.findIndex(function (it) {
+      return it.id === parseInt(id, 10);
     });
     if (target.nodeName === 'BUTTON' && !mainPin) {
       window.removeCard();
@@ -232,7 +238,7 @@
     if (evt.keyCode === ENTER_KEYCODE) {
       loadCard();
     }
-  }
+  };
 
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
