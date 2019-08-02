@@ -16,7 +16,7 @@
   var selectHousingPrice = mapFilterForm.querySelector('#housing-price');
   var selectHousingRooms = mapFilterForm.querySelector('#housing-rooms');
   var selectHousingGuests = mapFilterForm.querySelector('#housing-guests');
-  var selectHousingFeatures = mapFilterForm.querySelector('#housing-features');
+  var selectHousingFeatures = mapFilterForm.querySelector('#housing-features').querySelectorAll('input');
   var pinAddress = adsForm.querySelector('#address');
 
   // Отрисовка пинов
@@ -53,6 +53,13 @@
         return it.offer.guests === housingGuests;
       });
     }
+    for (var i = 0; i < selectHousingFeatures.length; i++) {
+        if (selectHousingFeatures[i].checked) {
+          filteredPins = filteredPins.filter(function (it) {
+            return it.offer.features.includes(selectHousingFeatures[i].value);
+          });
+        }
+      }
     window.render.pins(filteredPins);
   };
 
@@ -105,6 +112,20 @@
     updatePins();
   });
 
+  //
+  for (var i = 0; i < selectHousingFeatures.length; i++) {
+    selectHousingFeatures[i].addEventListener('click', function () {
+      for (var i = 0; i < selectHousingFeatures.length; i++) {
+        var newHousingFeatures = +selectHousingFeatures[i].value;
+        housingFeatures = newHousingFeatures;
+
+        window.removePins();
+        window.removeCard();
+        updatePins();
+        }
+    });
+  }
+
   var successHandler = (function (data) {
     pins = data;
     for (var i = 0; i < pins.length; i++) {
@@ -132,11 +153,11 @@
     map.classList.remove('map--faded');
 
     adsForm.classList.remove('ad-form--disabled');
-    for (var i = 0; i < mapFiltersFields.length; i++) {
-      mapFiltersFields[i].disabled = false;
-    }
     for (i = 0; i < adsFormFields.length; i++) {
       adsFormFields[i].disabled = false;
+    }
+    for (var i = 0; i < mapFiltersFields.length; i++) {
+      mapFiltersFields[i].disabled = false;
     }
 
     var roomNumber = adsForm.querySelector('#room_number');
@@ -149,6 +170,7 @@
 
     var mapPins = map.querySelector('.map__pins');
     mapPins.addEventListener('click', loadCard);
+    mapPins.addEventListener('keydown', openCard);
 
     window.backend.load(successHandler, errorHandler);
   };
@@ -203,6 +225,14 @@
     }
     pin = target;
   };
+
+  // Открытие карточки по Enter
+  var ENTER_KEYCODE = 13;
+  var openCard = function (evt) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      loadCard();
+    }
+  }
 
   // При движении курсора
   pinMain.addEventListener('mousedown', function (evt) {
