@@ -24,6 +24,7 @@
   var housingPrice;
   var housingRooms;
   var housingGuests;
+  var housingFeatures;
   var pins = [];
   var updatePins = function () {
     var filteredPins = pins.slice();
@@ -70,15 +71,6 @@
   };
 
   // Не выходит убрать в отдельный файл
-  var changeSelect = function (variable, select) {
-    var newVariable = select.value;
-    variable = newVariable;
-
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  };
-
   selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
     typeOfHouse = newTypeOfHouse;
@@ -119,7 +111,7 @@
   });
 
   //
-  for (i = 0; i < selectHousingFeatures.length; i++) {
+  for (var i = 0; i < selectHousingFeatures.length; i++) {
     selectHousingFeatures[i].addEventListener('click', function () {
       for (i = 0; i < selectHousingFeatures.length; i++) {
         var newHousingFeatures = +selectHousingFeatures[i].value;

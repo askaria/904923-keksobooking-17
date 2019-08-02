@@ -2,7 +2,6 @@
 
 (function () {
   var map = document.querySelector('.map');
-  var mapFilterForm = map.querySelector('.map__filters');
 
   // Устранение дребезга
   var DEBOUNCE_INTERVAL = 300; // ms
