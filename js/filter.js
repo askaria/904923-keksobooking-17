@@ -4,7 +4,7 @@
   // Устранение дребезга
   var DEBOUNCE_INTERVAL = 300; // ms
 
-  window.debounce = function (cb) {
+  var debounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -29,45 +29,43 @@
   var selectHousingGuests = mapFilterForm.querySelector('#housing-guests');
   var selectHousingFeatures = mapFilterForm.querySelector('#housing-features').querySelectorAll('input');
 
-  var pins = [];
-  var typeOfHouse;
-  var housingPrice;
-  var housingRooms;
-  var housingGuests;
   var updatePins = function () {
-     window.removePins();
+    window.removePins();
     window.removeCard();
-    var filteredPins = pins.slice();
+    var filteredPins = window.pins.slice();
     var typeOfHouse = selectHousingType.value;
     if (selectHousingType.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
         return it.offer.type === typeOfHouse;
       });
     }
+    var housingPrice = selectHousingPrice.value;
     if (selectHousingPrice.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
-        var housingFeature;
+        var price;
         switch (housingPrice) {
           case 'low':
-            housingFeature = it.offer.price < '10000';
+            price = it.offer.price < '10000';
             break;
           case 'middle':
-            housingFeature = it.offer.price >= '10000' && it.offer.price <= '50000';
+            price = it.offer.price >= '10000' && it.offer.price <= '50000';
             break;
           case 'high':
-            housingFeature = it.offer.price > '50000';
+            price = it.offer.price > '50000';
             break;
           default:
-            housingFeature = it.offer.price;
+            price = it.offer.price;
         }
-        return housingFeature;
+        return price;
       });
     }
+    var housingRooms = +selectHousingRooms.value;
     if (selectHousingRooms.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
         return it.offer.rooms === housingRooms;
       });
     }
+    var housingGuests = +selectHousingGuests.value;
     if (selectHousingGuests.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
         return it.offer.guests === housingGuests;
@@ -83,67 +81,11 @@
     window.render.pins(filteredPins);
   };
 
-  // Фильтр по типу жилья
-  var filter = {
-    type: function (it) {},
-    price: function (it) {},
-    rooms: function (it) {},
-    guests: function (it) {},
-  }
+  selectHousingType.addEventListener('change', debounce(updatePins, 500));
+  selectHousingPrice.addEventListener('change', debounce(updatePins, 500));
+  selectHousingRooms.addEventListener('change', debounce(updatePins, 500));
+  selectHousingGuests.addEventListener('change', debounce(updatePins, 500));
 
-  selectHousingType.addEventListener('change', updatePins);
-
-  /*selectHousingType.addEventListener('change', function () {
-    var newTypeOfHouse = selectHousingType.value;
-    filter.type(newTypeOfHouse);
-  });
-
-  selectHousingPrice.addEventListener('change', function () {
-    var newHousingPrice = selectHousingPrice.value;
-    filter.price(newHousingPrice);
-  });
-
-  selectHousingRooms.addEventListener('change', function () {
-    var newHousingRooms = +selectHousingRooms.value;
-    filter.rooms(newHousingRooms);
-  });
-
-  selectHousingGuests.addEventListener('change', function () {
-    var newHousingGuests = +selectHousingGuests.value;
-    filter.guests(newHousingGuests);
-  });
-
-  window.filter = filter;
-
-  window.filter.type = window.debounce(function (it) {
-    typeOfHouse = it;
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  });
-
-  window.filter.price = window.debounce(function (it) {
-    housingPrice = it;
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  });
-
-  window.filter.rooms = window.debounce(function (it) {
-    housingRooms = it;
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  });
-
-  window.filter.guests = window.debounce(function (it) {
-    housingGuests = it;
-    window.removePins();
-    window.removeCard();
-    updatePins();
-  });*/
-
-  //
   for (var i = 0; i < selectHousingFeatures.length; i++) {
     selectHousingFeatures[i].addEventListener('click', function () {
       for (i = 0; i < selectHousingFeatures.length; i++) {

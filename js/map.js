@@ -29,6 +29,8 @@
       mapFiltersFields[i].disabled = false;
     }
     startLoadPins();
+
+    window.pins = pins;
   });
 
   // Ошибка соединения с сервером
