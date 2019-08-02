@@ -46,7 +46,6 @@
 
   // Активация карты и загрузка пинов
   var activatePage = function () {
-    // Разблокируем карту и форму
     map.classList.remove('map--faded');
 
     adsForm.classList.remove('ad-form--disabled');

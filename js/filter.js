@@ -18,6 +18,7 @@
     };
   };
 
+  // Фильтрация пинов
   var map = document.querySelector('.map');
   var mapFilter = map.querySelector('.map__filters-container');
   var mapFilterForm = mapFilter.querySelector('.map__filters');
@@ -34,7 +35,10 @@
   var housingRooms;
   var housingGuests;
   var updatePins = function () {
+     window.removePins();
+    window.removeCard();
     var filteredPins = pins.slice();
+    var typeOfHouse = selectHousingType.value;
     if (selectHousingType.value !== 'any') {
       filteredPins = filteredPins.filter(function (it) {
         return it.offer.type === typeOfHouse;
@@ -87,7 +91,9 @@
     guests: function (it) {},
   }
 
-  selectHousingType.addEventListener('change', function () {
+  selectHousingType.addEventListener('change', updatePins);
+
+  /*selectHousingType.addEventListener('change', function () {
     var newTypeOfHouse = selectHousingType.value;
     filter.type(newTypeOfHouse);
   });
@@ -135,7 +141,7 @@
     window.removePins();
     window.removeCard();
     updatePins();
-  });
+  });*/
 
   //
   for (var i = 0; i < selectHousingFeatures.length; i++) {
@@ -147,6 +153,5 @@
       }
     });
   }
-
 
 })();
