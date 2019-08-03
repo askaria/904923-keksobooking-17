@@ -8,7 +8,6 @@
   var PIN_HEIGHT_0 = 44;
   var INIT_X = pinMain.offsetLeft;
   var INIT_Y = pinMain.offsetTop;
-  var ESC_KEYCODE = 27;
 
   var adsForm = document.querySelector('.ad-form');
   var adsFormFields = adsForm.children;
@@ -132,7 +131,7 @@
   };
 
   var onSuccessEscPress = function (e) {
-    if (e.keyCode === ESC_KEYCODE) {
+    if (e.keyCode === window.util.ESC_KEYCODE) {
       closeSuccess();
     }
   };
