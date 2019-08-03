@@ -7,7 +7,7 @@
 
   // Координаты в неактивном состоянии
   var pinX = Math.round(window.util.INIT_X + window.util.PIN_WIDTH_0 / 2);
-  var pinY = Math.round(window.util.INIT_Y + window.util.PIN_HEIGHT_0 / 2)
+  var pinY = Math.round(window.util.INIT_Y + window.util.PIN_HEIGHT_0 / 2);
   pinAddress.value = pinX + ', ' + pinY;
 
   // Удаление пинов
