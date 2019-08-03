@@ -4,11 +4,6 @@
   var map = document.querySelector('.map');
   var pinMain = map.querySelector('.map__pin--main');
 
-  var PIN_WIDTH_0 = 40;
-  var PIN_HEIGHT_0 = 44;
-  var INIT_X = pinMain.offsetLeft;
-  var INIT_Y = pinMain.offsetTop;
-
   var adsForm = document.querySelector('.ad-form');
   var adsFormFields = adsForm.children;
   var mapFilterForm = map.querySelector('.map__filters');
@@ -78,6 +73,7 @@
     // Форма очищается и блокируется
     map.classList.add('map--faded');
     adsForm.reset();
+    mapFilterForm.reset();
 
     adsForm.classList.add('ad-form--disabled');
     for (i = 0; i < mapFiltersFields.length; i++) {
@@ -88,9 +84,11 @@
     }
 
     // Пин возвращается на место
-    pinMain.style.top = INIT_Y + 'px';
-    pinMain.style.left = INIT_X + 'px';
-    pinAddress.value = Math.round(INIT_X + PIN_WIDTH_0 / 2) + ', ' + Math.round(INIT_Y + PIN_HEIGHT_0 / 2);
+    pinMain.style.top = window.util.INIT_Y + 'px';
+    pinMain.style.left = window.util.INIT_X + 'px';
+    var pinX = Math.round(window.util.INIT_X + window.util.PIN_WIDTH_0 / 2);
+    var pinY = Math.round(window.util.INIT_Y + window.util.PIN_HEIGHT_0 / 2)
+    pinAddress.value = pinX + ', ' + pinY;
 
     // Удаляем пины похожих объявлений и карточку
     window.removePins();
