@@ -93,7 +93,6 @@
     }
 
     // Закрытие карточки
-    var ESC_KEYCODE = 27;
     var card = document.querySelector('.map__card');
     if (card) {
       var closeButton = card.querySelector('.popup__close');
@@ -105,7 +104,7 @@
       };
 
       var onCardEscPress = function (e) {
-        if (e.keyCode === ESC_KEYCODE) {
+        if (e.keyCode === window.util.ESC_KEYCODE) {
           closeCard();
         }
       };

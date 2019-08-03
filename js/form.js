@@ -157,7 +157,7 @@
   };
 
   var onErrorEscPress = function (e) {
-    if (e.keyCode === ESC_KEYCODE) {
+    if (e.keyCode === window.util.ESC_KEYCODE) {
       closeError();
     }
   };
