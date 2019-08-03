@@ -78,5 +78,4 @@
       similarListElement.after(renderCard(data));
     }
   };
-
 })();

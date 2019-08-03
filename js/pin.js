@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var map = document.querySelector('.map');
   var pinMain = map.querySelector('.map__pin--main');
 
@@ -14,7 +13,7 @@
   var pinAddress = adsForm.querySelector('#address');
 
   // Координаты в неактивном состоянии
-  pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
+  pinAddress.value = Math.round(INIT_X + PIN_WIDTH_0 / 2) + ', ' + Math.round(INIT_Y + PIN_HEIGHT_0 / 2);
 
   // Удаление пинов
   window.removePins = function () {

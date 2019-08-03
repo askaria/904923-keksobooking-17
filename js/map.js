@@ -185,7 +185,7 @@
       pinMain.style.top = newCoords.y + 'px';
       pinMain.style.left = newCoords.x + 'px';
 
-      pinAddress.value = (newCoords.x + PIN_WIDTH / 2) + ', ' + (newCoords.y + PIN_HEIGHT);
+      pinAddress.value = Math.round(newCoords.x + PIN_WIDTH / 2) + ', ' + Math.round(newCoords.y + PIN_HEIGHT);
     };
 
     var onMouseUp = function (upEvt) {
@@ -225,7 +225,7 @@
         newCoords.x = limitsCoords.right;
       }
 
-      pinAddress.value = (newCoords.x + PIN_WIDTH / 2) + ', ' + (newCoords.y + PIN_HEIGHT);
+      pinAddress.value = Math.round(newCoords.x + PIN_WIDTH / 2) + ', ' + Math.round(newCoords.y + PIN_HEIGHT);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
@@ -234,5 +234,4 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
-
 })();

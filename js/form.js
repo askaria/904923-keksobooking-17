@@ -108,8 +108,7 @@
     window.backend.save(new FormData(adsForm), onLoad, onError);
   };
 
-  var submitButton = adsForm.querySelector('.ad-form__submit');
-  submitButton.addEventListener('click', onFormSubmit);
+  adsForm.addEventListener('submit', onFormSubmit);
 
   // Успешная отправка
   var similarSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -162,5 +161,4 @@
       closeError();
     }
   };
-
 })();
