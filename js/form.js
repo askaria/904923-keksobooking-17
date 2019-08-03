@@ -90,7 +90,7 @@
     // Пин возвращается на место
     pinMain.style.top = INIT_Y + 'px';
     pinMain.style.left = INIT_X + 'px';
-    pinAddress.value = (INIT_X + PIN_WIDTH_0 / 2) + ', ' + (INIT_Y + PIN_HEIGHT_0 / 2);
+    pinAddress.value = Math.round(INIT_X + PIN_WIDTH_0 / 2) + ', ' + Math.round(INIT_Y + PIN_HEIGHT_0 / 2);
 
     // Удаляем пины похожих объявлений и карточку
     window.removePins();
